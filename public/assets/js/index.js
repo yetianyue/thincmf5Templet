@@ -6,6 +6,8 @@ $(document).ready(function(){
     //关闭点击事件
     $(document).off('click.bs.dropdown.data-api');
     dropdownOpen();
+    //修改menu的active选中
+    changeMenuActive();
     //左侧菜单浮动，下拉数据加载
     var tarheight = $('.topbar').height();
     var viewheight = $(window).height();
@@ -24,6 +26,23 @@ $(document).ready(function(){
         }
     });
 });
+
+/**
+ * 修改菜单的选中样式
+ */
+function changeMenuActive() {
+    var w = window;
+    var mlis = $('.left-channel-ul').find('li');
+    var href = window.location.href;
+    $.each(mlis,function (n,m) {
+        var li =  $(m);
+        var mHost = w.location.protocol+'//'+w.location.host+li.attr('data');
+        if(mHost == href){
+            li.attr('class','active');
+        }
+    })
+}
+
 
 /**
  * 下拉加载数据

@@ -1,519 +1,363 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <title>首页 {$site_info.site_name|default=''}</title>
-    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
-    <meta name="description" content="{$site_info.site_seo_description|default=''}">
-    <link rel="stylesheet" href="__TMPL__/public/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="__TMPL__/public/assets/css/style.css">
-</head>
-<body>
-    <div class="navbar-collapse collapse topbar">
-        <!--天气-->
-        <div class="pull-left">
-            <div class="weather-abstract">
-                <span class="topbar-font">北京</span>
-                <span class="topbar-font">多云</span>
-                <span class="topbar-font">
-                    <em>22</em>° &nbsp;/&nbsp; <em>29</em>°
-                </span>
-            </div>
-        </div>
-        <div class="pull-right">
-            <!--未登录-->
-            <!--<ul class="top-right-nav">-->
-                <!--<li class="active pull-left topbar-font"><a href="#">登录</a></li>-->
-                <!--<li class="pull-left topbar-font"><a href="#">注册</a></li>-->
-                <!--<li class="pull-left topbar-font"><a href="#">反馈</a></li>-->
-                <!--<li class="pull-left topbar-font"><a href="#">关于我们</a></li>-->
-            <!--</ul>-->
-            <!--已登录-->
-            <ul class="top-right-nav">
-                <li class="pull-left topbar-font dropdown">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <img src="//p3.pstatp.com/thumb/ef40010ca40cf78b52b" class="user-avatar">笑点海绵宝宝
+<extend name="public@list_base"/>
+<block name="article_slide">
+    <div id="myCarousel" class="carousel slide">
+        <!-- 轮播（Carousel）指标 -->
+        <ol class="carousel-indicators">
+            <php>
+                $top_slide_id=empty($theme_vars['top_slide'])?3:$theme_vars['top_slide'];
+            </php>
+            <slides id="$top_slide_id">
+                <li data-target="#myCarousel" data-slide-to="{$key}"
+                <php>if($key==0) echo 'class="active"';</php>   >
+                </li>
+            </slides>
+            <noslides id="$top_slide_id">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </noslides>
+        </ol>
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner">
+            <slides id="$top_slide_id">
+                <div class="item <php>if($key==0) echo 'active';</php>   >">
+                    <a href="{$vo.url|default='#'}">
+                        <img src="{:cmf_get_image_url($vo.image)}" alt="{$vo.title}">
+                        <div class="carousel-caption">{$vo.title}</div>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-size">
-                        <li><a href="#">个人中心</a></li>
-                        <li class="drop-lastchild"><a href="#">退出</a></li>
-                    </ul>
-                </li>
-                <li class="pull-left topbar-font"><a href="#">反馈</a></li>
-                <li class="pull-left topbar-font"><a href="#">关于我们</a></li>
-            </ul>
+                </div>
+            </slides>
+            <noslides id="$top_slide_id">
+                <div class="item active">
+                    <a href="#">
+                        <img src="__TMPL__/public/assets/images/1.jpg" alt="First slide">
+                        <div class="carousel-caption">标题 1</div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="__TMPL__/public/assets/images/2.jpg" alt="Second slide">
+                        <div class="carousel-caption">标题 2</div>
+                    </a>
+                </div>
+                <div class="item">
+                    <a href="#">
+                        <img src="__TMPL__/public/assets/images/3.jpg" alt="Third slide">
+                        <div class="carousel-caption">标题 3</div>
+                    </a>
+                </div>
+            </noslides>
         </div>
+        <!-- 轮播（Carousel）导航 -->
+        <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
     </div>
-    <div class="container container-content">
-        <div class="pull-left left-channel">
-            <a href="/" class="logo">
-                <img src="//s3.pstatp.com/toutiao/static/img/logo.201f80d.png" alt="今日头条" style="width: 108px;height: 27px;">
-            </a>
-            <ul class="left-channel-ul">
-                <li class="active">
-                    <a href="/">首页</a>
-                </li>
-                <li>
-                    <a href="#">川菜</a>
-                </li>
-                <li>
-                    <a href="#">粤菜</a>
-                </li>
-                <li>
-                    <a href="#">湘菜</a>
-                </li>
-                <li>
-                    <a href="#">鲁菜</a>
-                </li>
-                <li>
-                    <a href="#">浙菜</a>
-                </li>
-                <li>
-                    <a href="#">闽菜</a>
-                </li>
-                <li>
-                    <a href="#">徽菜</a>
-                </li>
-                <li>
-                    <a href="#">苏菜</a>
-                </li>
-                <li>
-                    <a href="#">湖北菜</a>
-                </li>
-                <li>
-                    <a href="#">东北菜</a>
-                </li>
-            </ul>
-        </div>
-        <div class="pull-left middle-content">
-            <div id="myCarousel" class="carousel slide">
-                <!-- 轮播（Carousel）指标 -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-                <!-- 轮播（Carousel）项目 -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <a href="#">
-                            <img src="__TMPL__/public/assets/images/1.jpg" alt="First slide">
-                            <div class="carousel-caption">标题 1</div>
+</block>
+<block name="article_list">
+    <ul class="article-list">
+        <li>
+            <div class="article-info">
+                <div class="article-image pull-left">
+                    <a href="#">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
+                    </a>
+                </div>
+                <div class="article-text-info pull-left">
+                    <div class="artitcle-title">
+                        <a href="/group/6454822070952919566/" target="_blank" class="link">
+                            车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
                         </a>
                     </div>
-                    <div class="item">
-                        <a href="#">
-                            <img src="__TMPL__/public/assets/images/2.jpg" alt="Second slide">
-                            <div class="carousel-caption">标题 2</div>
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a href="#">
-                            <img src="__TMPL__/public/assets/images/3.jpg" alt="Third slide">
-                            <div class="carousel-caption">标题 3</div>
-                        </a>
+                    <div class="article-footer">
+                        <div class="article-footer-left pull-left">
+                            <a href="#" class="art-foot-tag catborder">汽车</a>
+                            <a href="#" class="art-foot-tag">
+                                <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                            </a>
+                            <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                            <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                            <a href="#" class="art-foot-tag">17分钟前</a>
+                        </div>
                     </div>
                 </div>
-                <!-- 轮播（Carousel）导航 -->
-                <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control right" href="#myCarousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                </a>
             </div>
-            <div class="loading" style="display: none;" id="top-loading">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <span>加载中⋅⋅⋅</span>
-            </div>
-            <ul class="article-list">
-                <li>
-                    <div class="article-info">
-                        <div class="article-image pull-left">
-                            <a href="#">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
-                            </a>
-                        </div>
-                        <div class="article-text-info pull-left">
-                            <div class="artitcle-title">
-                                <a href="/group/6454822070952919566/" target="_blank" class="link">
-                                    车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
-                                </a>
-                            </div>
-                            <div class="article-footer">
-                                <div class="article-footer-left pull-left">
-                                    <a href="#" class="art-foot-tag catborder">汽车</a>
-                                    <a href="#" class="art-foot-tag">
-                                        <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                    </a>
-                                    <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                    <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                    <a href="#" class="art-foot-tag">17分钟前</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="article-gallery">
-                        <div class="artitcle-title">
-                            <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
-                        </div>
-                        <div class="article-img-list">
-                            <a href="/group/6454874050706539022/"  class="article-img-item">
-                                <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
-                            </a>
-                            <i class="article-img-nums"><span>11图</span></i>
-                        </div>
-                        <div class="gallery-footer">
-                            <div class="article-footer-left pull-left">
-                                <a href="#" class="art-foot-tag catborder">汽车</a>
-                                <a href="#" class="art-foot-tag">
-                                    <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                </a>
-                                <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                <a href="#" class="art-foot-tag">17分钟前</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="article-info">
-                        <div class="article-image pull-left">
-                            <a href="#">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
-                            </a>
-                        </div>
-                        <div class="article-text-info pull-left">
-                            <div class="artitcle-title">
-                                <a href="/group/6454822070952919566/" target="_blank" class="link">
-                                    车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
-                                </a>
-                            </div>
-                            <div class="article-footer">
-                                <div class="article-footer-left pull-left">
-                                    <a href="#" class="art-foot-tag catborder">汽车</a>
-                                    <a href="#" class="art-foot-tag">
-                                        <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                    </a>
-                                    <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                    <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                    <a href="#" class="art-foot-tag">17分钟前</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="article-gallery">
-                        <div class="artitcle-title">
-                            <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
-                        </div>
-                        <div class="article-img-list">
-                            <a href="/group/6454874050706539022/"  class="article-img-item">
-                                <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
-                            </a>
-                            <i class="article-img-nums"><span>11图</span></i>
-                        </div>
-                        <div class="gallery-footer">
-                            <div class="article-footer-left pull-left">
-                                <a href="#" class="art-foot-tag catborder">汽车</a>
-                                <a href="#" class="art-foot-tag">
-                                    <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                </a>
-                                <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                <a href="#" class="art-foot-tag">17分钟前</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="article-info">
-                        <div class="article-image pull-left">
-                            <a href="#">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
-                            </a>
-                        </div>
-                        <div class="article-text-info pull-left">
-                            <div class="artitcle-title">
-                                <a href="/group/6454822070952919566/" target="_blank" class="link">
-                                    车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
-                                </a>
-                            </div>
-                            <div class="article-footer">
-                                <div class="article-footer-left pull-left">
-                                    <a href="#" class="art-foot-tag catborder">汽车</a>
-                                    <a href="#" class="art-foot-tag">
-                                        <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                    </a>
-                                    <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                    <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                    <a href="#" class="art-foot-tag">17分钟前</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="article-gallery">
-                        <div class="artitcle-title">
-                            <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
-                        </div>
-                        <div class="article-img-list">
-                            <a href="/group/6454874050706539022/"  class="article-img-item">
-                                <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
-                            </a>
-                            <i class="article-img-nums"><span>11图</span></i>
-                        </div>
-                        <div class="gallery-footer">
-                            <div class="article-footer-left pull-left">
-                                <a href="#" class="art-foot-tag catborder">汽车</a>
-                                <a href="#" class="art-foot-tag">
-                                    <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                </a>
-                                <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                <a href="#" class="art-foot-tag">17分钟前</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="article-info">
-                        <div class="article-image pull-left">
-                            <a href="#">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
-                            </a>
-                        </div>
-                        <div class="article-text-info pull-left">
-                            <div class="artitcle-title">
-                                <a href="/group/6454822070952919566/" target="_blank" class="link">
-                                    车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
-                                </a>
-                            </div>
-                            <div class="article-footer">
-                                <div class="article-footer-left pull-left">
-                                    <a href="#" class="art-foot-tag catborder">汽车</a>
-                                    <a href="#" class="art-foot-tag">
-                                        <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                    </a>
-                                    <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                    <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                    <a href="#" class="art-foot-tag">17分钟前</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="article-gallery">
-                        <div class="artitcle-title">
-                            <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
-                        </div>
-                        <div class="article-img-list">
-                            <a href="/group/6454874050706539022/"  class="article-img-item">
-                                <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
-                            </a>
-                            <i class="article-img-nums"><span>11图</span></i>
-                        </div>
-                        <div class="gallery-footer">
-                            <div class="article-footer-left pull-left">
-                                <a href="#" class="art-foot-tag catborder">汽车</a>
-                                <a href="#" class="art-foot-tag">
-                                    <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                </a>
-                                <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                <a href="#" class="art-foot-tag">17分钟前</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="article-info">
-                        <div class="article-image pull-left">
-                            <a href="#">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
-                            </a>
-                        </div>
-                        <div class="article-text-info pull-left">
-                            <div class="artitcle-title">
-                                <a href="/group/6454822070952919566/" target="_blank" class="link">
-                                    车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
-                                </a>
-                            </div>
-                            <div class="article-footer">
-                                <div class="article-footer-left pull-left">
-                                    <a href="#" class="art-foot-tag catborder">汽车</a>
-                                    <a href="#" class="art-foot-tag">
-                                        <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                    </a>
-                                    <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                    <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                    <a href="#" class="art-foot-tag">17分钟前</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="article-gallery">
-                        <div class="artitcle-title">
-                            <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
-                        </div>
-                        <div class="article-img-list">
-                            <a href="/group/6454874050706539022/"  class="article-img-item">
-                                <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
-                            </a>
-                            <a href="/group/6454874050706539022/" class="article-img-item">
-                                <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
-                            </a>
-                            <i class="article-img-nums"><span>11图</span></i>
-                        </div>
-                        <div class="gallery-footer">
-                            <div class="article-footer-left pull-left">
-                                <a href="#" class="art-foot-tag catborder">汽车</a>
-                                <a href="#" class="art-foot-tag">
-                                    <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
-                                </a>
-                                <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
-                                <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
-                                <a href="#" class="art-foot-tag">17分钟前</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="loading" style="display: none;" id="bottom-loading">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <span>加载中⋅⋅⋅</span>
-            </div>
-        </div>
-        <div class="pull-right right-channel">
-            <div class="right-item">
-                    <input type="text" name="search" class="form-control search-input input-lg right-background-color" placeholder="大家都在搜XXXX">
-                    <button type="button" class="btn btn-primary btn-lg search-btn">搜索</button>
-            </div>
-            <div class="right-item right-tip-a">
-                <div class="tip-img pull-left">
-                    <img src="//s3a.pstatp.com/toutiao/resource/ntoutiao_web/static/image/other/report_logo_15cc24e.png" alt="" >
+        </li>
+        <li>
+            <div class="article-gallery">
+                <div class="artitcle-title">
+                    <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
                 </div>
-                <div class="tip-info pull-left">
-                    <p class="title">网上有害信息举报专区</p>
-                    <p class="tel">举报电话：12377</p>
+                <div class="article-img-list">
+                    <a href="/group/6454874050706539022/"  class="article-img-item">
+                        <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
+                    </a>
+                    <i class="article-img-nums"><span>11图</span></i>
+                </div>
+                <div class="gallery-footer">
+                    <div class="article-footer-left pull-left">
+                        <a href="#" class="art-foot-tag catborder">汽车</a>
+                        <a href="#" class="art-foot-tag">
+                            <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                        </a>
+                        <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                        <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                        <a href="#" class="art-foot-tag">17分钟前</a>
+                    </div>
                 </div>
             </div>
-            <div class="right-item hot-news">
-                <div class="hot-title">
-                    24小时热闻
+        </li>
+        <li>
+            <div class="article-info">
+                <div class="article-image pull-left">
+                    <a href="#">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
+                    </a>
                 </div>
-                <ul class="hot-list">
-                    <li>
-                        <a href="#">
-                            <div class="hot-news-info">
-                                <div class="hot-pic pull-left">
-                                    <img src="//p9.pstatp.com/list/240x240/320b00011335a2cf6d09" lazy="loaded">
-                                </div>
-                                <div class="hot-info pull-left">
-                                    <p class="module-title">清华建筑博士徐腾：他奶奶的庙，白洋淀的鳖都很牛，山寨的也真诚</p>
-                                </div>
-                            </div>
+                <div class="article-text-info pull-left">
+                    <div class="artitcle-title">
+                        <a href="/group/6454822070952919566/" target="_blank" class="link">
+                            车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
                         </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="hot-news-info">
-                                <div class="hot-pic pull-left">
-                                    <img src="//p3.pstatp.com/list/240x240/311a0006ac513116bc25" lazy="loaded">
-                                </div>
-                                <div class="hot-info pull-left">
-                                    <p class="module-title">印度军方下令中印边界对峙点印度一侧附近村庄搬离</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="hot-news-info">
-                                <div class="hot-pic pull-left">
-                                    <img src="//p3.pstatp.com/list/240x240/357d0008ce9a38880ad2" lazy="loaded">
-                                </div>
-                                <div class="hot-info pull-left">
-                                    <p class="module-title">中超-辽足0-3恒大全场集锦：保利尼奥破僵 高拉特双响</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <div class="hot-news-info">
-                                <div class="hot-pic pull-left">
-                                    <img src="//p3.pstatp.com/list/240x240/3579001328eaad187c16" lazy="loaded">
-                                </div>
-                                <div class="hot-info pull-left">
-                                    <p class="module-title">中超-胡尔克助攻埃尔克森单刀破门 上港客场打破华夏大门</p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
+                    </div>
+                    <div class="article-footer">
+                        <div class="article-footer-left pull-left">
+                            <a href="#" class="art-foot-tag catborder">汽车</a>
+                            <a href="#" class="art-foot-tag">
+                                <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                            </a>
+                            <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                            <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                            <a href="#" class="art-foot-tag">17分钟前</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-	<script type="text/javascript" src="__TMPL__/public/assets/js/jquery.js"></script>
-    <script type="text/javascript" src="__TMPL__/public/assets/js/bootstrap.js"></script>
-    <script type="text/javascript" src="__TMPL__/public/assets/js/index.js"></script>
-</body>
-</html>
+        </li>
+        <li>
+            <div class="article-gallery">
+                <div class="artitcle-title">
+                    <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
+                </div>
+                <div class="article-img-list">
+                    <a href="/group/6454874050706539022/"  class="article-img-item">
+                        <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
+                    </a>
+                    <i class="article-img-nums"><span>11图</span></i>
+                </div>
+                <div class="gallery-footer">
+                    <div class="article-footer-left pull-left">
+                        <a href="#" class="art-foot-tag catborder">汽车</a>
+                        <a href="#" class="art-foot-tag">
+                            <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                        </a>
+                        <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                        <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                        <a href="#" class="art-foot-tag">17分钟前</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="article-info">
+                <div class="article-image pull-left">
+                    <a href="#">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
+                    </a>
+                </div>
+                <div class="article-text-info pull-left">
+                    <div class="artitcle-title">
+                        <a href="/group/6454822070952919566/" target="_blank" class="link">
+                            车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
+                        </a>
+                    </div>
+                    <div class="article-footer">
+                        <div class="article-footer-left pull-left">
+                            <a href="#" class="art-foot-tag catborder">汽车</a>
+                            <a href="#" class="art-foot-tag">
+                                <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                            </a>
+                            <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                            <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                            <a href="#" class="art-foot-tag">17分钟前</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="article-gallery">
+                <div class="artitcle-title">
+                    <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
+                </div>
+                <div class="article-img-list">
+                    <a href="/group/6454874050706539022/"  class="article-img-item">
+                        <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
+                    </a>
+                    <i class="article-img-nums"><span>11图</span></i>
+                </div>
+                <div class="gallery-footer">
+                    <div class="article-footer-left pull-left">
+                        <a href="#" class="art-foot-tag catborder">汽车</a>
+                        <a href="#" class="art-foot-tag">
+                            <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                        </a>
+                        <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                        <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                        <a href="#" class="art-foot-tag">17分钟前</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="article-info">
+                <div class="article-image pull-left">
+                    <a href="#">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
+                    </a>
+                </div>
+                <div class="article-text-info pull-left">
+                    <div class="artitcle-title">
+                        <a href="/group/6454822070952919566/" target="_blank" class="link">
+                            车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
+                        </a>
+                    </div>
+                    <div class="article-footer">
+                        <div class="article-footer-left pull-left">
+                            <a href="#" class="art-foot-tag catborder">汽车</a>
+                            <a href="#" class="art-foot-tag">
+                                <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                            </a>
+                            <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                            <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                            <a href="#" class="art-foot-tag">17分钟前</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="article-gallery">
+                <div class="artitcle-title">
+                    <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
+                </div>
+                <div class="article-img-list">
+                    <a href="/group/6454874050706539022/"  class="article-img-item">
+                        <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
+                    </a>
+                    <i class="article-img-nums"><span>11图</span></i>
+                </div>
+                <div class="gallery-footer">
+                    <div class="article-footer-left pull-left">
+                        <a href="#" class="art-foot-tag catborder">汽车</a>
+                        <a href="#" class="art-foot-tag">
+                            <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                        </a>
+                        <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                        <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                        <a href="#" class="art-foot-tag">17分钟前</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="article-info">
+                <div class="article-image pull-left">
+                    <a href="#">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/3129000501c99b94a3c4" lazy="loaded">
+                    </a>
+                </div>
+                <div class="article-text-info pull-left">
+                    <div class="artitcle-title">
+                        <a href="/group/6454822070952919566/" target="_blank" class="link">
+                            车主入手此国产SUV只为改成奥迪，开回乡下真没几个人认出来
+                        </a>
+                    </div>
+                    <div class="article-footer">
+                        <div class="article-footer-left pull-left">
+                            <a href="#" class="art-foot-tag catborder">汽车</a>
+                            <a href="#" class="art-foot-tag">
+                                <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                            </a>
+                            <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                            <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                            <a href="#" class="art-foot-tag">17分钟前</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="article-gallery">
+                <div class="artitcle-title">
+                    <a href="/group/6454874050706539022/"  class="link">暗夜里生长的职业 揭秘代驾司机的生活</a>
+                </div>
+                <div class="article-img-list">
+                    <a href="/group/6454874050706539022/"  class="article-img-item">
+                        <img class="lazy-load-img" src="//p1.pstatp.com/list/190x124/320e0003833152116536" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddd5ba6882c3" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p9.pstatp.com/list/190x124/322d0001ddc15d54303a" lazy="loaded">
+                    </a>
+                    <a href="/group/6454874050706539022/" class="article-img-item">
+                        <img class="lazy-load-img" src="//p3.pstatp.com/list/190x124/320e0003833096b501e1" lazy="loaded">
+                    </a>
+                    <i class="article-img-nums"><span>11图</span></i>
+                </div>
+                <div class="gallery-footer">
+                    <div class="article-footer-left pull-left">
+                        <a href="#" class="art-foot-tag catborder">汽车</a>
+                        <a href="#" class="art-foot-tag">
+                            <img src="//p3.pstatp.com/large/2c5d00012e885444dd87" lazy="loaded">
+                        </a>
+                        <a href="#" class="art-foot-tag"> 舅服你 ⋅</a>
+                        <a href="#" class="art-foot-tag"> 102个评论 ⋅</a>
+                        <a href="#" class="art-foot-tag">17分钟前</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</block>
