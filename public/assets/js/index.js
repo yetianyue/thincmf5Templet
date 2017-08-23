@@ -9,7 +9,7 @@ $(document).ready(function(){
     //修改menu的active选中
     changeMenuActive();
     //左侧菜单浮动，下拉数据加载
-    var tarheight = $('.topbar').height();
+    var tarheight = $('.topbar').height()+$('.middlebar-box').height();
     var viewheight = $(window).height();
     $(window).scroll(function (e) {
         var wheight = $(this).scrollTop();
@@ -17,9 +17,11 @@ $(document).ready(function(){
         if( wheight > tarheight){
             //不可见
             $('.left-channel').css('top','10px');
+            $('.share-box').css('top','10px');
         }else{
             //可见
             $('.left-channel').css('top',50-wheight+'px');
+            $('.share-box').css('top',105-wheight+'px');
         }
         if(viewheight+wheight >= cheight){
             loadArticleList();
