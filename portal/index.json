@@ -40,26 +40,6 @@
                         }
                     }
                 }
-            },
-            "hottest_articles": {
-                "title": "热门文章",
-                "display": "1",
-                "vars": {
-                    "hottest_articles_category_id": {
-                        "title": "文章分类ID",
-                        "value": "",
-                        "type": "text",
-                        "dataSource": {
-                            "api": "portal/category/index",
-                            "multi": true
-                        },
-                        "placeholder": "请选择分类",
-                        "tip": "",
-                        "rule": {
-                            "require": true
-                        }
-                    }
-                }
             }
         }
     }

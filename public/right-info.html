@@ -1,0 +1,49 @@
+<div class="right-item right-tip-a">
+    <div class="tip-img pull-left">
+        <img src="//s3a.pstatp.com/toutiao/resource/ntoutiao_web/static/image/other/report_logo_15cc24e.png" alt="" >
+    </div>
+    <div class="tip-info pull-left">
+        <p class="title">网上有害信息举报专区</p>
+        <p class="tel">举报电话：12377</p>
+    </div>
+</div>
+<div class="right-item hot-news">
+    <div class="hot-title">
+        吃货最爱
+    </div>
+    <ul class="hot-list">
+        <portal:articles limit="5" order="post.post_hits DESC" categoryIds="">
+            <li>
+                <div class="hot-news-info">
+                    <div class="hot-pic pull-left">
+                        <a title="{$vo.post_title}" href="{:cmf_url('portal/Article/index',array('id'=>$vo['id']))}">
+                            <img src="{:cmf_get_image_url($vo.more.thumbnail)}" lazy="loaded">
+                        </a>
+                    </div>
+                    <div class="hot-info pull-left">
+                        <a title="{$vo.post_title}" href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}">
+                            <p class="module-title">{$vo.post_title}</p>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </portal:articles>
+    </ul>
+</div>
+<div class="right-item hot-news">
+    <div class="hot-title">
+        友情链接
+    </div>
+    <ul class="link-content">
+        <links>
+            <li class="link-item">
+                <a href="{$vo.url|default=''}" target="{$vo.target|default=''}">{$vo.name|default=''}</a>&nbsp;
+            </li>
+        </links>
+    </ul>
+</div>
+<div class="right-item about-me">
+    <div class="about-item">© <php>echo date('Y')</php> {$site_info.site_name}</div>
+    <div class="about-item">备案号：{$site_info.site_icp}</div>
+    <div class="about-item">站长邮箱：<a href="mailto:{$site_info.site_admin_email}">{$site_info.site_admin_email}</a></div>
+</div>

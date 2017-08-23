@@ -1,6 +1,119 @@
-<extend name="public@list_base"/>
-<block name="article_slide">
-    {$category.name}
+<extend name="public@base"/>
+
+<block  name="title">{$category.name}</block>
+
+<block name="topbar-left">
+    <include file="public@weather"/>
 </block>
-<block name="article_list">
+
+<block name="left-channel">
+    <include file="public@left-channel"/>
+</block>
+
+<block name="article_slide"></block>
+<block name="middle-content">
+    <div class="loading" style="display: none;" id="top-loading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <span>加载中⋅⋅⋅</span>
+    </div>
+    <ul class="article-list">
+        <portal:articles limit="10" order="post.published_time DESC" categoryIds="$category.id">
+            <if condition="empty($vo.more.photos) || count($vo.more.photos) < 4">
+                <li>
+                    <div class="article-info">
+                        <div class="article-image pull-left">
+                            <a href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}">
+                                <empty name="$vo.more.thumbnail">
+                                    <img class="lazy-load-img" src="__TMPL__/public/assets/images/default-thumbnail.png" lazy="loaded">
+                                    <else/>
+                                    <img class="lazy-load-img" src="{:cmf_get_image_url($vo.more.thumbnail)}" lazy="loaded">
+                                </empty>
+                            </a>
+                        </div>
+                        <div class="article-text-info pull-left">
+                            <div class="article-info-c">
+                                <div class="artitcle-title">
+                                    <a href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}"  class="link">
+                                        {$vo.post_title}
+                                    </a>
+                                </div>
+                                <div class="article-footer">
+                                    <div class="article-footer-left pull-left">
+                                        <!--<a href="#" class="art-foot-tag catborder">汽车</a>-->
+                                        <a href="/" class="art-foot-tag">
+                                            <img src="__TMPL__/public/assets/images/favicon.ico" lazy="loaded">
+                                        </a>
+                                        <a href="javascript:void(0)" class="art-foot-tag">
+                                            <empty name="$vo.post_source">
+                                                原创
+                                                <else/>
+                                                {$vo.post_source}
+                                            </empty> ⋅
+                                        </a>
+                                        <a href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}" class="art-foot-tag"> {$vo.recommended}个评论 ⋅</a>
+                                        <a href="javascript:void(0);" class="art-foot-tag">{:FormartTime($vo.published_time)}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <else/>
+                <li>
+                    <div class="article-gallery">
+                        <div class="artitcle-title">
+                            <a href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}"  class="link">{$vo.post_title}</a>
+                        </div>
+                        <div class="article-img-list">
+                            <php>$photosnum = 1;</php>
+                            <foreach name="vo.more.photos" item="photos">
+                                <a href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}"  class="article-img-item">
+                                    <img class="lazy-load-img" src="{:cmf_get_image_url($photos.url)}" lazy="loaded">
+                                </a>
+                                <php>
+                                    if($photosnum >= 4 )
+                                    break;
+                                    $photosnum++;
+                                </php>
+                            </foreach>
+                            <i class="article-img-nums"><span>{:count($vo.more.photos)}图</span></i>
+                        </div>
+                        <div class="gallery-footer">
+                            <div class="article-footer-left pull-left">
+                                <!--<a href="#" class="art-foot-tag catborder">汽车</a>-->
+                                <a href="/" class="art-foot-tag">
+                                    <img src="__TMPL__/public/assets/images/favicon.ico" lazy="loaded">
+                                </a>
+                                <a href="javascript:void(0)" class="art-foot-tag">
+                                    <empty name="$vo.post_source">
+                                        原创
+                                        <else/>
+                                        {$vo.post_source}
+                                    </empty> ⋅
+                                </a>
+                                <a href="{:cmf_url('portal/Article/index',array('id'=>$vo.id,'cid'=>$vo.category_id))}" class="art-foot-tag"> {$vo.recommended}个评论 ⋅</a>
+                                <a href="javascript:void(0);" class="art-foot-tag">{:FormartTime($vo.published_time)}</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </if>
+        </portal:articles>
+    </ul>
+    <div class="loading" style="display: none;" id="bottom-loading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <span>加载中⋅⋅⋅</span>
+    </div>
+</block>
+
+<block name="right-channel">
+    <include file="public@right-channel"/>
 </block>

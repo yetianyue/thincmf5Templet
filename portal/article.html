@@ -1,0 +1,43 @@
+<extend name="public@base" xmlns="http://www.w3.org/1999/html"/>
+
+<block name="title">{$article.post_title}</block>
+
+<block name="topbar-left">
+    <div class="top-menu-list">
+        <navigation nav-id="1" root="">
+            <a href="{$menu.href|default=''}" target="{$menu.target|default=''}">{$menu.name|default=''}</a>
+        </navigation>
+    </div>
+</block>
+<block name="middlebar">
+    <div class="navbar-collapse collapse middlebar">
+        <div class="container middlebar-box">
+            <div class="log-box pull-left v-center">
+                <a href="/"  class="logo-link">
+                    <img src="//s3.pstatp.com/toutiao/static/img/logo.201f80d.png" class="logo">
+                </a>
+            </div>
+            <div class="bread-box pull-left ">
+                <a href="/">首页</a><span>/</span>
+                <portal:breadcrumb cid="category.id" self="true">
+                    <a href="{:cmf_url('portal/List/index',array('id'=>$vo.id))}">{$vo.name}</a><span>/</span>
+                </portal:breadcrumb>
+                <span>正文</span>
+            </div>
+        </div>
+        <div class="pull-right">
+
+        </div>
+    </div>
+</block>
+<block name="left-channel">
+
+</block>
+
+<block name="middle-content">
+    content
+</block>
+
+<block name="right-channel">
+    <include file="public@right-info"/>
+</block>
