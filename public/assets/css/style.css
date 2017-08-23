@@ -612,3 +612,7 @@ a.comment-area-a {
 .icon-wechat:before{
     content: "\e6d7";
 }
+
+.detail-comment{
+    margin: 30px 0 ;
+}

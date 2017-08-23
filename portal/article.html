@@ -61,8 +61,13 @@
                 <span>{$article.post_source}</span>
                 <span>{:date('Y-m-d H:i',$article.published_time)}</span>
             </div>
-            <div class="article-content">
+            <div class="article-content" style="height: 1000px;overflow:hidden;">
                 {$article.post_content}
+            </div>
+        </div>
+        <div class="detail-comment" id="comment_area">
+            <div class="comment-header">
+                <em>{$article.recommended}</em>
             </div>
         </div>
     </div>
