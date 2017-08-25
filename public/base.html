@@ -9,8 +9,9 @@
     </title>
     <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
     <meta name="description" content="{$site_info.site_seo_description|default=''}">
-    <link rel="stylesheet" href="__TMPL__/public/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="__TMPL__/public/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="__TMPL__/public/assets/css/style.css">
+    <block name="stylesheet"></block>
 </head>
 <body>
 <!--body-上-->
@@ -50,21 +51,33 @@
 <block name="middlebar"></block>
 <!--body-下-->
 <div class="container container-content">
-    <!--content-左-->
-    <div class="pull-left left-channel">
-        <block name="left-channel"></block>
-    </div>
-    <!--content-中-->
-    <div class="pull-left middle-content">
-        <block name="middle-content"></block>
-    </div>
-    <!--content-右-->
-    <div class="pull-right right-channel">
-        <block name="right-channel"></block>
-    </div>
+    <block name="container">
+        <!--content-左-->
+        <div class="pull-left left-channel">
+            <block name="left-channel"></block>
+        </div>
+        <!--content-中-->
+        <div class="pull-left middle-content">
+            <block name="middle-content"></block>
+        </div>
+        <!--content-右-->
+        <div class="pull-right right-channel">
+            <block name="right-channel"></block>
+        </div>
+    </block>
 </div>
 <script type="text/javascript" src="__TMPL__/public/assets/js/jquery.js"></script>
 <script type="text/javascript" src="__TMPL__/public/assets/js/bootstrap.js"></script>
 <script type="text/javascript" src="__TMPL__/public/assets/js/index.js"></script>
+<script type="text/javascript">
+    var GV = {
+        ROOT: "__ROOT__/",
+        WEB_ROOT: "__WEB_ROOT__/",
+        JS_ROOT: "static/js/"
+    };
+</script>
+<script type="text/javascript" src="/static/js/wind.js"></script>
+<script type="text/javascript" src="/static/js/frontend.js"></script>
+<block  name="script"></block>
 </body>
 </html>

@@ -12,22 +12,28 @@ $(document).ready(function(){
     var tarheight = $('.topbar').height()+$('.middlebar-box').height();
     var viewheight = $(window).height();
     $(window).scroll(function (e) {
-        var wheight = $(this).scrollTop();
-        var cheight = $('body').get(0).scrollHeight;
-        if( wheight > tarheight){
-            //不可见
-            $('.left-channel').css('top','10px');
-            $('.share-box').css('top','10px');
-        }else{
-            //可见
-            $('.left-channel').css('top',50-wheight+'px');
-            $('.share-box').css('top',105-wheight+'px');
-        }
-        if(viewheight+wheight >= cheight){
-            loadArticleList();
-        }
+        resizePosition(this,tarheight,viewheight);
     });
+    resizePosition(window,tarheight,viewheight);
 });
+
+//调整浮动位置
+function resizePosition(obj,tarheight,viewheight) {
+    var wheight = $(this).scrollTop();
+    var cheight = $('body').get(0).scrollHeight;
+    if( wheight > tarheight){
+        //不可见
+        $('.left-channel').css('top','10px');
+        $('.share-box').css('top','10px');
+    }else{
+        //可见
+        $('.left-channel').css('top',50-wheight+'px');
+        $('.share-box').css('top',105-wheight+'px');
+    }
+    if(viewheight+wheight >= cheight){
+        loadArticleList();
+    }
+}
 
 /**
  * 修改菜单的选中样式
@@ -64,3 +70,5 @@ function dropdownOpen() {
         $(this).removeClass('open');
     });
 }
+
+

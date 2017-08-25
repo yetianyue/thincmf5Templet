@@ -1,0 +1,73 @@
+<extend name="public@base"/>
+
+<block name="title">登录</block>
+<block name="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="__TMPL__/public/assets/css/login.css">
+</block>
+<block name="topbar-left">
+    <div class="top-menu-list">
+        <navigation nav-id="1" root="">
+            <a href="{$menu.href|default=''}" target="{$menu.target|default=''}">{$menu.name|default=''}</a>
+        </navigation>
+    </div>
+</block>
+
+<block name="container">
+    <a href="/" >
+        <img src="__TMPL__/public/assets/images/logo.png" alt="今日头条"  class="logo">
+    </a>
+    <div class="slogan-wrap">
+        <img src="//s3a.pstatp.com/toutiao/resource/ntoutiao_web/static/image/login/slogan_9a3eba0.png" alt="">
+    </div>
+    <div class="login-box">
+        <div class="login-input-box">
+            <form action="{:url('user/login/doLogin')}" method="post" class="js-ajax-form">
+                <div class="form-group">
+                    <input type="text" class="form-control login-input" id="input_username" placeholder="手机号/邮箱/用户名" name="username">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control login-input" id="input_password" placeholder="密码" name="password">
+                </div>
+                <div class="form-group clear captcha-box">
+                    <input type="password" class="form-control login-input input-captcha pull-left" id="input_captcha" name="captcha" placeholder="验证码  ">
+                    <captcha height="40" width="150" font-size="20"/>
+                </div>
+                <div class=" form-group button-box">
+                    <button type="submit"  class="action-btn js-ajax-submit" >登录</button>
+                </div>
+                <div class="form-group" style="text-align: center;">
+                    <ul class="list-inline">
+                        <li><a href="{:cmf_url('user/Register/index')}">现在注册</a></li>
+                        <li><a href="{:cmf_url('user/Login/findPassword')}">忘记密码</a></li>
+                    </ul>
+                </div>
+            </form>
+            <ul class="third-login clear">
+                <li class="weibo-li"></li>
+                <li class="wechat-li"></li>
+                <li class="qq-li"></li>
+            </ul>
+        </div>
+    </div>
+</block>
+<block  name="script">
+    <script type="text/javascript" src="__STATIC__/js/frontend.js"></script>
+    <script>
+        $(document).ready(function () {
+            _body_init_();
+        });
+        $(window).resize(function () {
+            _body_init_();
+        });
+        function _body_init_(){
+            var b = $('body');
+            var w = $(window);
+            b.css('min-width',w.width());
+            b.css('min-height',w.height());
+            b.css('max-width',w.width());
+            b.css('max-height',w.height());
+            b.addClass('login-body');
+        }
+    </script>
+</block>

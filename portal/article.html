@@ -35,7 +35,7 @@
         <div class="comments-box">
             <a href="#comment_area" class="comment-area-a">
                 <i class="bui-icon icon-comments_anchor" ></i>
-                <span>{$article.recommended}</span>
+                <span>{$article.comment_count}</span>
             </a>
             <div class="share-box-a">
                 <i class="bui-icon icon-sina"></i>
@@ -61,15 +61,27 @@
                 <span>{$article.post_source}</span>
                 <span>{:date('Y-m-d H:i',$article.published_time)}</span>
             </div>
-            <div class="article-content" style="height: 1000px;overflow:hidden;">
+            <div class="article-content" >
                 {$article.post_content}
             </div>
         </div>
-        <div class="detail-comment" id="comment_area">
-            <div class="comment-header">
-                <em>{$article.recommended}</em>
+        <php>
+            $comment_hook_param=[
+            'post_id'=>$article['id'],
+            'post_table'=>'portal_post',
+            'post_title'=>$article['post_title']
+            ];
+            $comment=hook_one('comment',$comment_hook_param);
+        </php>
+        <if condition="empty($comment) && cmf_get_current_admin_id()">
+            <div>
+                <div class="alert alert-warning" role="alert">
+                    此区域这为评论区，请安装评论插件！<br>
+                    <em>注：普通用户不会看到此提示！</em>
+                </div>
             </div>
-        </div>
+        </if>
+        {$comment}
     </div>
 </block>
 
